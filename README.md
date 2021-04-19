@@ -20,8 +20,27 @@ Place the module file to your custom location and create necessary imports in yo
 - Python requests 2.25.0+
 
 ## Usage
-Following example was run against custom topology in Cisco DNA Center Lab 1 (https://devnetsandbox.cisco.com). \
-The input data can be introduced as a string variable or feed from the file.
+Following **custom** topology was created in Cisco DNA Center Lab 1 (https://devnetsandbox.cisco.com). \
+![alt text](images/topology.png "topology")
+
+We can issue traceroute command on host1 to discover the path to host2:
+
+```
+host1# traceroute 10.82.84.1
+
+Type escape sequence to abort.
+Tracing the route to 10.82.84.1
+
+  1 10.81.83.2 0 msec 0 msec 0 msec
+  2 10.80.81.2 1 msec 0 msec 1 msec
+  3 10.80.82.1 1 msec 1 msec 1 msec
+  4 10.82.84.1 0 msec 9 msec *
+host1#   
+```
+
+Example script illustrates how the module can be used.\
+(the input data can be introduced as a string variable or feed from the file)
+
 ```python
 from dnac import DNACHandler
 
@@ -38,8 +57,11 @@ traceroute_string = "host1# traceroute 10.82.84.1\n\n" \
                     "  4 10.82.84.1 0 msec 9 msec *\n" \
                     "host1#\n"   
 
+# create new instance
 handler = DNACHandler("10.10.20.85")
-token = handler.get_token("REDACTED", "REDACTED")
+
+# get and assign token so it can be used in further calls
+handler.get_token("REDACTED", "REDACTED")
 
 for line in traceroute_string.split("\n"):
     print(handler.process_line(line))
