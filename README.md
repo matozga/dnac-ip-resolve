@@ -12,6 +12,7 @@ After successful response, new request is generated: "Get Device by ID" with sup
 
 The response should contain a hostname of network device which then we can present to the user.
 
+[![published](https://static.production.devnetcloud.com/codeexchange/assets/images/devnet-published.svg)](https://developer.cisco.com/codeexchange/github/repo/matozga/dnac-ip-resolve)
 # Getting Started
 Place the module file to your custom location and create necessary imports in your code.
 
